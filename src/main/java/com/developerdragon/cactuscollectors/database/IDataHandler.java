@@ -15,13 +15,13 @@ public interface IDataHandler {
 
     Connection getConnection();
 
-    void addCollector(CactusCollector collector);
+    boolean addCollector(CactusCollector collector);
 
-    void removeCollector(CactusCollector collector);
+    boolean removeCollector(CactusCollector collector);
 
-    void updateCollector(CactusCollector collector);
+    boolean updateCollector(CactusCollector collector);
 
-    void bulkUpdate(List<CactusCollector> collectors);
+    boolean bulkUpdate(List<CactusCollector> collectors);
 
     List<CactusCollector> getCollectors();
 

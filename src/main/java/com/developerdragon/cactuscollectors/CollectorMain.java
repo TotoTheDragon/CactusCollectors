@@ -1,6 +1,8 @@
 package com.developerdragon.cactuscollectors;
 
 import com.developerdragon.cactuscollectors.commands.GiveCollectorCommand;
+import com.developerdragon.cactuscollectors.database.IDataHandler;
+import com.developerdragon.cactuscollectors.database.SQLHandler;
 import com.developerdragon.cactuscollectors.handler.CactusCollectorHandler;
 import com.developerdragon.cactuscollectors.listeners.BlockGrowListener;
 import com.developerdragon.cactuscollectors.listeners.InteractListener;
@@ -17,6 +19,7 @@ public final class CollectorMain extends JavaPlugin {
     private static CollectorMain instance;
     private static Economy econ = null;
     public SQL sql;
+    public IDataHandler databaseHandler;
     public CactusCollectorHandler collectorHandler;
 
     public static CollectorMain getInstance() {
@@ -27,8 +30,13 @@ public final class CollectorMain extends JavaPlugin {
     public void onEnable() {
         instance = this;
         loadConfig();
-        sql = new SQL(this);
-        sql.load();
+        if(getConfig().getBoolean("mysql.enabled")){
+            databaseHandler = new SQLHandler();
+        }else {
+            // Create SQLite Handler
+        }
+
+        databaseHandler.load();
         collectorHandler = new CactusCollectorHandler();
         getServer().getPluginManager().registerEvents(new BlockGrowListener(), this);
         getServer().getPluginManager().registerEvents(new InteractListener(), this);
