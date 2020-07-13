@@ -1,0 +1,12 @@
+name: CactusCollectors
+version: ${project.version}
+main: com.developerdragon.cactuscollectors.CollectorMain
+api-version: 1.13
+softdepend: [WildTools, ShopGUIPlus]
+authors: [DeveloperDragon]
+description: This will add cactus collectors to your server!
+website: developerdragon.com
+commands:
+  givecollector:
+    usage: /givecollector <user> <amount>
+    description: Used to give collectors to players
