@@ -8,10 +8,14 @@ import java.util.Objects;
 
 public class HashLocation {
 
-    @Getter private int x;
-    @Getter private int y;
-    @Getter private int z;
-    @Getter private String worldName;
+    @Getter
+    private final int x;
+    @Getter
+    private final int y;
+    @Getter
+    private final int z;
+    @Getter
+    private final String worldName;
 
     public HashLocation(int paramX, int paramY, int paramZ, String paramWorldName) {
         this.x = paramX;
@@ -24,7 +28,8 @@ public class HashLocation {
         return new Location(Bukkit.getWorld(worldName), x, y, z);
     }
 
-    @Override public boolean equals(Object o) {
+    @Override
+    public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         HashLocation hashChunk = (HashLocation) o;
@@ -33,11 +38,13 @@ public class HashLocation {
                 Objects.equals(worldName, hashChunk.worldName);
     }
 
-    @Override public int hashCode() {
+    @Override
+    public int hashCode() {
         return Objects.hash(x, z, worldName);
     }
 
-    @Override public String toString() {
+    @Override
+    public String toString() {
         return "HashLocation{" +
                 "x=" + x +
                 ", y=" + y +

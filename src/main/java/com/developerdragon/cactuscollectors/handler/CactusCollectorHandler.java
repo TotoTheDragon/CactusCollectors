@@ -28,20 +28,23 @@ public class CactusCollectorHandler {
         loadCollectors();
 
         recalculateTask = new BukkitRunnable() {
-            @Override public void run() {
+            @Override
+            public void run() {
                 recalculateAllChunks();
             }
         }.runTaskTimerAsynchronously(plugin, 0L, 1200L);
 
         giveCactusTask = new BukkitRunnable() {
-            @Override public void run() {
+            @Override
+            public void run() {
                 collectorHashMap.forEach((hashChunk, collector) -> collector.setCactusStored((collector.getCactusStored() + (collector.getCactusInChunk() / 720.0))));
             }
         }.runTaskTimerAsynchronously(plugin, 0L, 5L);
 
         updateTask = new BukkitRunnable() {
-            @Override public void run() {
-                plugin.sql.bulkUpdate(new ArrayList<>(collectorHashMap.values()));
+            @Override
+            public void run() {
+                plugin.databaseHandler.bulkUpdate(new ArrayList<>(collectorHashMap.values()));
             }
         }.runTaskTimerAsynchronously(plugin, 0, 1200L);
 
@@ -49,12 +52,12 @@ public class CactusCollectorHandler {
 
     public void addCollector(CactusCollector collector) {
         collectorHashMap.putIfAbsent(collector.getHashChunk(), collector);
-        plugin.sql.addCollector(collector);
+        plugin.databaseHandler.addCollector(collector);
     }
 
     public void removeCollector(CactusCollector collector) {
         collectorHashMap.remove(collector.getHashChunk());
-        plugin.sql.removeCollector(collector);
+        plugin.databaseHandler.removeCollector(collector);
     }
 
 
@@ -72,7 +75,7 @@ public class CactusCollectorHandler {
     }
 
     public void loadCollectors() {
-        plugin.sql.getCollectors().forEach(collector -> collectorHashMap.put(collector.getHashChunk(), collector));
+        plugin.databaseHandler.getCollectors().forEach(collector -> collectorHashMap.put(collector.getHashChunk(), collector));
     }
 
     public void recalculateCactusInChunk(CactusCollector collector) {

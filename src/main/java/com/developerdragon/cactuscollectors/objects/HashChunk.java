@@ -8,9 +8,12 @@ import java.util.Objects;
 
 public class HashChunk {
 
-    @Getter private int x;
-    @Getter private int z;
-    @Getter private String worldName;
+    @Getter
+    private final int x;
+    @Getter
+    private final int z;
+    @Getter
+    private final String worldName;
 
     public HashChunk(int paramX, int paramZ, String paramWorldName) {
         this.x = paramX;
@@ -22,7 +25,8 @@ public class HashChunk {
         return Bukkit.getWorld(worldName).getChunkAt(x, z);
     }
 
-    @Override public boolean equals(Object o) {
+    @Override
+    public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         HashChunk hashChunk = (HashChunk) o;
@@ -31,7 +35,8 @@ public class HashChunk {
                 Objects.equals(worldName, hashChunk.worldName);
     }
 
-    @Override public int hashCode() {
+    @Override
+    public int hashCode() {
         return Objects.hash(x, z, worldName);
     }
 }

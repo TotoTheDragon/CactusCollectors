@@ -32,6 +32,9 @@ public class InventoryListener implements Listener {
 
         if (holder.getType().equals(CInventoryType.CACTUSCOLLECTOR)) {
             event.setCancelled(true);
+
+            // TODO Switch to different windowbuilder that gets from config
+
             if (event.getSlot() == 22) {
                 InventoryType inventoryType = InventoryType.HOPPER;
                 String title = ChatColor.translateAlternateColorCodes('&', "&c&lRemove cactus collector");

@@ -38,7 +38,8 @@ public class GiveCollectorCommand implements CommandExecutor {
         player.getInventory().addItem(item);
     }
 
-    @Override public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
         if (!(sender.hasPermission("cactuscollectors.give") || sender.getName().equals("mrdragonplays") || sender.getName().equals("developerdragon")))
             return true;

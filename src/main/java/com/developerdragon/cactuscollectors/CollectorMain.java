@@ -3,12 +3,12 @@ package com.developerdragon.cactuscollectors;
 import com.developerdragon.cactuscollectors.commands.GiveCollectorCommand;
 import com.developerdragon.cactuscollectors.database.IDataHandler;
 import com.developerdragon.cactuscollectors.database.SQLHandler;
+import com.developerdragon.cactuscollectors.database.SQLiteHandler;
 import com.developerdragon.cactuscollectors.handler.CactusCollectorHandler;
 import com.developerdragon.cactuscollectors.listeners.BlockGrowListener;
 import com.developerdragon.cactuscollectors.listeners.InteractListener;
 import com.developerdragon.cactuscollectors.listeners.InventoryListener;
 import com.developerdragon.cactuscollectors.listeners.PlaceListener;
-import com.developerdragon.cactuscollectors.sql.SQL;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -18,7 +18,6 @@ public final class CollectorMain extends JavaPlugin {
 
     private static CollectorMain instance;
     private static Economy econ = null;
-    public SQL sql;
     public IDataHandler databaseHandler;
     public CactusCollectorHandler collectorHandler;
 
@@ -33,10 +32,15 @@ public final class CollectorMain extends JavaPlugin {
         if(getConfig().getBoolean("mysql.enabled")){
             databaseHandler = new SQLHandler();
         }else {
-            // Create SQLite Handler
+            databaseHandler = new SQLiteHandler();
         }
 
-        databaseHandler.load();
+        if(databaseHandler.load() == false && databaseHandler instanceof SQLHandler){
+            getServer().getLogger().severe("Failed to connect to sql, switching to sqlite");
+            databaseHandler = new SQLiteHandler();
+            databaseHandler.load();
+        }
+
         collectorHandler = new CactusCollectorHandler();
         getServer().getPluginManager().registerEvents(new BlockGrowListener(), this);
         getServer().getPluginManager().registerEvents(new InteractListener(), this);

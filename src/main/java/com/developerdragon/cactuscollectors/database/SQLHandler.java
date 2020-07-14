@@ -21,7 +21,7 @@ public class SQLHandler implements IDataHandler {
     public SQLHandler(){
     }
 
-    public void load() {
+    public boolean load() {
         connection = getConnection();
         try {
             Statement s = connection.createStatement();
@@ -31,9 +31,11 @@ public class SQLHandler implements IDataHandler {
                     ") ENGINE=InnoDB DEFAULT CHARACTER SET utf8;";
             s.executeUpdate(createTable);
             s.close();
+            return true;
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
+        return false;
     }
 
     public void initialize() {
@@ -143,7 +145,7 @@ public class SQLHandler implements IDataHandler {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM " + table);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                output.add(new CactusCollector(resultSet.getInt("x"), resultSet.getInt("y"), resultSet.getInt("z"), resultSet.getString("world"), resultSet.getDouble("collectedcactus"), resultSet.getInt("cactusinchunk")));
+                output.add(new CactusCollector(resultSet.getInt("x"), resultSet.getInt("y"), resultSet.getInt("z"), resultSet.getString("world"), resultSet.getDouble("collectedcactus"), resultSet.getInt("cactusinchunk"),resultSet.getString("owner")));
             }
         } catch (SQLException exception) {
             exception.printStackTrace();

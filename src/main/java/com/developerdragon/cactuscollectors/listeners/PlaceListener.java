@@ -24,7 +24,7 @@ public class PlaceListener implements Listener {
             return;
         }
 
-        CactusCollector collector = new CactusCollector(event.getBlockPlaced().getLocation());
+        CactusCollector collector = new CactusCollector(event.getBlockPlaced().getLocation(),event.getPlayer().getUniqueId().toString());
         plugin.collectorHandler.addCollector(collector);
         plugin.collectorHandler.recalculateCactusInChunk(collector);
     }

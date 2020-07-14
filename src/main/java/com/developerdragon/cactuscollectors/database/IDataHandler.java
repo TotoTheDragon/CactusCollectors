@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IDataHandler {
 
-    void load();
+    boolean load();
 
     void initialize();
 

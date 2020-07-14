@@ -9,12 +9,18 @@ import org.bukkit.inventory.InventoryHolder;
 
 public class CInventoryHolder implements InventoryHolder {
 
-    @Getter private Inventory inventory;
-    @Getter private String title;
-    @Getter private int size;
-    @Getter private CInventoryType type;
-    @Getter private CactusCollector collector;
-    @Getter private InventoryType inventoryType;
+    @Getter
+    private final Inventory inventory;
+    @Getter
+    private final String title;
+    @Getter
+    private int size;
+    @Getter
+    private final CInventoryType type;
+    @Getter
+    private final CactusCollector collector;
+    @Getter
+    private InventoryType inventoryType;
 
 
     public CInventoryHolder(int paramSize, String paramTitle, CInventoryType paramType, CactusCollector paramCollector) {
